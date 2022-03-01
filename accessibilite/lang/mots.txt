@@ -1,0 +1,21 @@
+Bloc accessibilité
+
+Accessibilité
+
+Couleur du fond
+
+Couleur du texte
+
+Taille du texte
+
+Interligne
+
+Espace entre les caractères
+
+Espace entre les mots
+
+Police de caractères
+
+Remise à zéro
+
+Enregistrer

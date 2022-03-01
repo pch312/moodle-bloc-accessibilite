@@ -1,0 +1,11 @@
+@font-face {
+    font-family: 'opendyslexic';
+	font-style:normal;
+	font-weight:400;
+	src: local('opendyslexic3-regular'),
+		local('opendyslexic3'),
+		local('opendyslexic'),
+		local('open-dyslexic'),
+		url('/blocks/accessibilite/font/opendyslexic3-regular-webfont.woff') format('woff'),
+		url('/blocks/accessibilite/font/opendyslexic3-regular-webfont.ttf') format('truetype')
+}
