@@ -33,15 +33,17 @@ $simplehtml = new accessibilite_form();
 
 if ($simplehtml->is_cancelled()) {
     // Cancelled forms redirect to the course main page.
-    $courseurl = new moodle_url('/my');
+    $courseurl = new moodle_url('/my' , [ 'sesskey' => sesskey ()]);
     redirect($courseurl);
 } else if ($fromform = $simplehtml->get_data()) {
     // We need to add code to appropriately act on and store the submitted data
     // but for now we will just redirect back to the course main page.
 
     if ($fromform->submitbutton != '' ) {
+        require_sesskey ();
         store($fromform->block_accessibilite_code);
     } else {
+        require_sesskey ();
         store('');
     }
     $courseurl = new moodle_url('/my');
@@ -50,6 +52,5 @@ if ($simplehtml->is_cancelled()) {
     // Form didn't validate or this is the first display.
     $site = get_site();
     echo $OUTPUT->header();
-    $simplehtml->display();
     echo $OUTPUT->footer();
 }

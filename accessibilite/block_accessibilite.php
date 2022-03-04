@@ -100,7 +100,7 @@ class block_accessibilite extends block_base {
         $this->content->text  .= '</td>';
         $this->content->text  .= '</tr>';
         $this->content->text  .= '<tr>';
-        $this->content->text  .= '<td rowspan="2">';
+        $this->content->text  .= '<td rowspan="2" valign="center">';
         $this->content->text  .= '    <label for="police_du_texte">'.get_string('font', 'block_accessibilite').'</label>';
         $this->content->text  .= '</td>';
         $this->content->text  .= '<td>';
@@ -123,7 +123,7 @@ class block_accessibilite extends block_base {
         $this->content->text  .= '</td>';
         $this->content->text  .= '</tr>';
         $this->content->text  .= '</table>';
-		$this->content->footer = '';
+        $this->content->footer = '';
         $simplehtml = new accessibilite_form("/blocks/accessibilite/view.php");
         $this->content->text .= $simplehtml->render();
         if ($this->content !== null) {

@@ -15,5 +15,5 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 defined('MOODLE_INTERNAL') || die();
     $plugin->component = 'block_accessibilite';  // Recommended since 2.0.2 (MDL-26035). Required since 3.0 (MDL-48494).
-    $plugin->version = 2022022600;  // YYYYMMDDHH (year, month, day, 24-hr time).
+    $plugin->version = 2022030400;  // YYYYMMDDHH (year, month, day, 24-hr time).
     $plugin->requires = 2020061500; // YYYYMMDDHH (This is the release version for Moodle 3.9).
