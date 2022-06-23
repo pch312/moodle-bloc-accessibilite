@@ -26,7 +26,7 @@ require_once('accessibilite_form.php');
 global $DB;
 
 require_login();
-
+$PAGE->set_context(context_system::instance());
 
 $simplehtml = new accessibilite_form();
 
@@ -39,7 +39,7 @@ if ($simplehtml->is_cancelled()) {
     // We need to add code to appropriately act on and store the submitted data
     // but for now we will just redirect back to the course main page.
 
-    if ($fromform->submitbutton != '' ) {
+    if (!empty($fromform->submitbutton)) {
         require_sesskey ();
         block_accessibilite_store($fromform->block_accessibilite_code);
     } else {
