@@ -23,15 +23,31 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+global $CFG;
+
 require_once("{$CFG->libdir}/formslib.php");
 
+/**
+ * form accessiblite
+ *
+ * @author philippe
+ *
+ */
 class accessibilite_form extends moodleform {
 
+    /**
+     * Definition
+     *
+     * {@inheritDoc}
+     * @see moodleform::definition()
+     */
     public function definition() {
 
         $mform =& $this->_form;
+        $url = $this->_customdata['url'];
         $mform->setType('block_accessibilite', PARAM_NOTAGS); // Set type of element.
         $mform->addElement('hidden', 'block_accessibilite_code', '');
+        $mform->addElement('hidden', 'block_accessibilite_url', $url);
         $buttonarray = array();
         $buttonarray[] = $mform->createElement('submit', 'submitbutton', get_string('store', 'block_accessibilite'));
         $buttonarray[] = $mform->createElement('submit', 'raz', get_string('reset', 'block_accessibilite'));

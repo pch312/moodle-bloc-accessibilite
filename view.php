@@ -23,7 +23,7 @@
 require_once(__DIR__. '/../../config.php');
 require_once('lib.php');
 require_once('accessibilite_form.php');
-global $DB;
+global $OUTPUT, $PAGE;
 
 require_login();
 $PAGE->set_context(context_system::instance());
@@ -38,7 +38,7 @@ if ($simplehtml->is_cancelled()) {
 } else if ($fromform = $simplehtml->get_data()) {
     // We need to add code to appropriately act on and store the submitted data
     // but for now we will just redirect back to the course main page.
-
+    $url = $fromform->block_accessibilite_url;
     if (!empty($fromform->submitbutton)) {
         require_sesskey ();
         block_accessibilite_store($fromform->block_accessibilite_code);
@@ -46,11 +46,9 @@ if ($simplehtml->is_cancelled()) {
         require_sesskey ();
         block_accessibilite_store('');
     }
-    $courseurl = new moodle_url('/my');
-    redirect($courseurl);
+    redirect($url);
 } else {
     // Form didn't validate or this is the first display.
-    $site = get_site();
     echo $OUTPUT->header();
     echo $OUTPUT->footer();
 }

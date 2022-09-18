@@ -14,13 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 /**
- * Formulaire d'enregistrement de la configuration
+ * Access
  *
  * @package     block_accessibilite
  * @copyright   2022 Philippe CHATAIGNER
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+/**
+ * Upgrade
+ * @param unknown $oldversion
+ * @return boolean
+ */
 function xmldb_block_accessibilite_upgrade($oldversion) {
     global $DB;
 

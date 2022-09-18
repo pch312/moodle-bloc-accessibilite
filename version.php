@@ -13,7 +13,16 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+/**
+ * Version
+ *
+ * @package     block_accessibilite
+ * @copyright   2022 Philippe CHATAIGNER
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 defined('MOODLE_INTERNAL') || die();
     $plugin->component = 'block_accessibilite';  // Recommended since 2.0.2 (MDL-26035). Required since 3.0 (MDL-48494).
-    $plugin->version = 2022062100;  // YYYYMMDDHH (year, month, day, 24-hr time).
+    $plugin->version = 2022091600;  // YYYYMMDDHH (year, month, day, 24-hr time).
     $plugin->requires = 2020061500; // YYYYMMDDHH (This is the release version for Moodle 3.9).
+    $plugin->maturity  = MATURITY_STABLE;
+    $plugin->release   = '1.0.0';

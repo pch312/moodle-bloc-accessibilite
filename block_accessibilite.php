@@ -22,15 +22,32 @@
  */
  defined('MOODLE_INTERNAL') || die();
 require_once('accessibilite_form.php');
+
+/**
+ * Class bloc accessibilite
+ * @author philippe
+ *
+ */
 class block_accessibilite extends block_base {
+
+    /**
+     * Init bloc
+     */
     public function init() {
         $this->title = get_string('accessibilite', 'block_accessibilite');
     }
+
+    /**
+     * Content of the bloc
+     * {@inheritDoc}
+     * @see block_base::get_content()
+     */
     public function get_content() {
         if ($this->content !== null) {
             return $this->content;
         }
         global $USER, $CFG, $DB;
+
         require_once($CFG->dirroot . '/user/profile/lib.php');
         $myuser = $DB->get_record('user', array('id' => $USER->id));
         profile_load_data($myuser);
@@ -127,16 +144,30 @@ class block_accessibilite extends block_base {
         $this->content->text  .= '</tr>';
         $this->content->text  .= '</table>';
         $this->content->footer = '';
-        $simplehtml = new accessibilite_form("/blocks/accessibilite/view.php");
+
+        $toform = array('url' => $this->page->url);
+        $simplehtml = new accessibilite_form("/blocks/accessibilite/view.php", $toform, 'post', '', null, true, null);
+
         $this->content->text .= $simplehtml->render();
         if ($this->content !== null) {
             return $this->content;
         }
 
     }
+
+    /**
+     * hide header
+     * {@inheritDoc}
+     * @see block_base::hide_header()
+     */
     public function hide_header() {
         return false;
     }
+
+    /**
+     * Specific défintion
+     * @param form $mform
+     */
     protected function specific_definition($mform) {
 
         // Section header title according to language file.
@@ -148,6 +179,11 @@ class block_accessibilite extends block_base {
         $mform->setType('config_text', PARAM_RAW);
     }
 
+    /**
+     * specialization
+     * {@inheritDoc}
+     * @see block_base::specialization()
+     */
     public function specialization() {
         if (isset($this->config)) {
             if (empty($this->config->title)) {

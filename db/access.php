@@ -13,7 +13,14 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-defined('MOODLE_INTERNAL') || die();
+/**
+ * Access
+ *
+ * @package     block_accessibilite
+ * @copyright   2022 Philippe CHATAIGNER
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+    defined('MOODLE_INTERNAL') || die();
     $capabilities = array(
 
     'block/accessibilite:myaddinstance' => array(

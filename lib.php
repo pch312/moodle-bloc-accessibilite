@@ -21,26 +21,37 @@
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-
+/**
+ * ajout du javascript avant l entete
+ */
 function block_accessibilite_before_footer() {
     global $PAGE;
     $PAGE->requires->js('/blocks/accessibilite/js/jscolor.js');
     $PAGE->requires->js('/blocks/accessibilite/js/accessibilite.js');
 }
 
-function block_accessibilite_before_standard_top_of_body_html() {
-}
-
+/**
+ * block_accessibilite_render_navbar_output
+ * @return string
+ */
 function block_accessibilite_render_navbar_output() {
     global $USER;
     return '<span id="accessibilite-code" data-code="'.block_accessibilite_read().'"></span>';
 }
 
+/**
+ * block_accessibilite_read
+ * @return string|mixed|NULL
+ */
 function block_accessibilite_read() {
     global $USER;
     return get_user_preferences('block_accessibilite_code');
 }
 
+/**
+ * block_accessibilite_store
+ * @param unknown $pcode
+ */
 function block_accessibilite_store($pcode) {
     global $USER;
     set_user_preference('block_accessibilite_code', $pcode);

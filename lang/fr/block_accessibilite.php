@@ -20,7 +20,7 @@
  * @copyright   2022 Philippe CHATAIGNER
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-$string['pluginname'] = 'bloc accessibilité';
+$string['pluginname'] = 'Accessibilité';
 $string['accessibilite'] = 'Accessibilité';
 $string['backgroundcolor'] = 'Couleur du fond';
 $string['textcolor'] = 'Couleur du texte';

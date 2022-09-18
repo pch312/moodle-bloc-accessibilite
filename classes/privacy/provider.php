@@ -23,8 +23,18 @@
 namespace block_accessibilite\privacy;
 use core_privacy\local\metadata\collection;
 
+/**
+ * class provider
+ * @author philippe
+ *
+ */
 class provider implements \core_privacy\local\metadata\provider {
 
+    /**
+     * provider creating
+     * @param collection $collection
+     * @return collection
+     */
     public static function get_metadata(collection $collection) : collection {
         $collection->add_user_preference( 'block_accessibilite_change_presentation' ,
            'privacy:metadata:preference:block_accessibilite_change_presentation' );
