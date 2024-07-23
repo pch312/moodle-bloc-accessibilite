@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Access
  *
@@ -21,20 +22,20 @@
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
     defined('MOODLE_INTERNAL') || die();
-    $capabilities = array(
+    $capabilities = [
 
-    'block/accessibilite:myaddinstance' => array(
+    'block/accessibilite:myaddinstance' => [
         'captype' => 'write',
         'contextlevel' => CONTEXT_SYSTEM,
-        'archetypes' => array('user' => CAP_ALLOW),
-        'clonepermissionsfrom' => 'moodle/my:manageblocks'
-    ),
+        'archetypes' => ['user' => CAP_ALLOW],
+        'clonepermissionsfrom' => 'moodle/my:manageblocks',
+    ],
 
-    'block/accessibilite:addinstance' => array(
+    'block/accessibilite:addinstance' => [
         'riskbitmask' => RISK_SPAM | RISK_XSS,
         'captype' => 'write',
         'contextlevel' => CONTEXT_BLOCK,
-        'archetypes' => array('editingteacher' => CAP_ALLOW, 'manager' => CAP_ALLOW ),
-        'clonepermissionsfrom' => 'moodle/site:manageblocks'
-    ),
-    );
+        'archetypes' => ['editingteacher' => CAP_ALLOW, 'manager' => CAP_ALLOW ],
+        'clonepermissionsfrom' => 'moodle/site:manageblocks',
+    ],
+    ];

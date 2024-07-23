@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Fichier de langue anglais
  *
@@ -24,10 +25,13 @@ $string['pluginname'] = 'Accessibility block';
 $string['accessibilite'] = 'Accessibility';
 $string['accessibilite:addinstance'] = 'Add a new simple HTML block';
 $string['accessibilite:myaddinstance'] = 'Add a new simple HTML block to the My Moodle page';
+$string['name'] = "Title";
+$string['name_desc'] = "Title of the plugin which will be displayed in the block header otherwise the name of the plugin will be displayed. Be careful if you fill in this field, your plugin will always have the same name regardless of the selected language.";
+$string['page_parametres'] = 'Accessibility block';
 $string['blockstring'] = 'String';
 $string['blocktitle'] = 'Bloc Title';
 $string['defaulttitle'] = 'Accessibilite';
-$string['defaulttext'] = 'degault Text';
+$string['defaulttext'] = 'default Text';
 $string['backgroundcolor'] = 'Background color';
 $string['textcolor'] = 'Text color';
 $string['textsize'] = 'Text size';
@@ -39,4 +43,9 @@ $string['bold'] = 'Bold';
 $string['italic'] = 'Italic';
 $string['reset'] = 'Reset';
 $string['store'] = 'Store';
+$string['monochrome'] = 'Monochrome';
+$string['cursor'] = 'Cursor';
+$string['alternatewords'] = 'Alternate words';
+
 $string['privacy:metadata:block_accessibilite_change_presentation'] = 'Presentation of the platform: background color and text format';
+$string['privacy:metadata:preference:block_accessibilite_change_presentation'] = 'Presentation of the platform: background color and text format';

@@ -1,0 +1,48 @@
+@font-face{
+	font-family:comic sans ms;
+	font-style:normal;
+	font-weight:400;
+	src:local('Comic Sans MS'),
+		local('ComicSansMS-Regular'),
+		url('/blocks/accessibilite/css/comic-sans-ms.woff') format('woff'),
+		url('/blocks/accessibilite/css/comic-sans-ms.ttf') format('truetype')
+}
+@font-face{
+	font-family:helvetica;
+	font-style:normal;
+	font-weight:400;
+	src:local('Helvetica'),
+		local('Helvetica-Regular'),
+		url('/blocks/accessibilite/css/Helvetica.woff') format('woff'),
+		url('/blocks/accessibilite/css/Helvetica.ttf') format('truetype')
+}
+@font-face {
+    font-family: 'opendyslexic';
+	font-style:normal;
+	font-weight:400;
+	src: local('opendyslexic3-regular'),
+		local('opendyslexic3'),
+		local('opendyslexic'),
+		local('open-dyslexic'),
+		url('/blocks/accessibilite/css/opendyslexic3-regular-webfont.woff') format('woff'),
+		url('/blocks/accessibilite/css/opendyslexic3-regular-webfont.ttf') format('truetype')
+}
+	@font-face{
+	font-family:verdana;
+	font-style:normal;
+	font-weight:400;
+	src:local('Verdana'),
+		local('Verdana-Regular'),
+		url('/blocks/accessibilite/css/Verdana.woff') format('woff'),
+		url('/blocks/accessibilite/css/Verdana.ttf') format('truetype')
+}
+body {
+   filter: grayscale(0%);
+   transition: filter 0.5s;
+}
+
+/* Style en monochrome */
+	.monochrome {
+    filter: grayscale(100%);
+}			
+		

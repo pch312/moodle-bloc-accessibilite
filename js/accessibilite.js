@@ -1,18 +1,32 @@
-	var background="rgb(255,255,255)";
-	var text= "rgb(0,0,0)";
-	var taille = 1;			
-	var incTaille = .2;
-	var interligne=1;	
-	var incInterligne= .1;
-	var espaceCaractere=0;			
-	var incEspaceCaractere=.1;
-	var espaceMot = .1;	
-	var incEspaceMot = .1;
-	var font='Helvetica';
-	var bold=0;
-	var italic=0;
-	var police='default';
-	var x=null;
+
+	var block_accessibilite_background="rgb(255,255,255)";
+	var block_accessibilite_text= "rgb(0,0,0)";
+	var block_accessibilite_taille = 1;			
+	var block_accessibilite_incTaille = .2;
+	var block_accessibilite_interligne=1;	
+	var block_accessibilite_incInterligne= .1;
+	var block_accessibilite_espaceCaractere=0;			
+	var block_accessibilite_incEspaceCaractere=.1;
+	var block_accessibilite_espaceMot = .1;	
+	var block_accessibilite_incEspaceMot = .1;
+	var block_accessibilite_font='Helvetica';
+	var block_accessibilite_bold=0;
+	var block_accessibilite_italic=0;
+	var block_accessibilite_police='default';
+	var block_accessibilite_couleur1=''
+	var block_accessibilite_couleur2=''
+	var block_accessibilite_altern=0;
+	var block_accessibilite_mono=0;
+	var block_accessibilite_num_cursor = 0;
+
+	var block_accessibilite_x=null;
+	
+	var block_accessibilite_mask_posY=0;
+	var block_accessibilite_mask_lastScrolledTop=0;
+	var block_accessibilite_mask_delta=40;
+		
+	var block_accessibilite_style = document.createElement('style');
+	document.head.appendChild(block_accessibilite_style);
 	
 		// Here we can adjust defaults for all color pickers on page:
 	jscolor.presets.default = {
@@ -34,17 +48,17 @@
 	}
 	
 	// Set values to cookies.
-	function setCookie(cname, cvalue, exdays) {
+	function block_accessibilite_setCookie(cname, cvalue, exdays) {
 		var d = new Date();
 		d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
 		var expires = "expires=" + d.toUTCString();
-		document.cookie = cname + '=' + cvalue + '; ' + expires + '; path=/ ';
+		document.cookie = cname + '=' + cvalue + '; ' + expires + '; path=/ ' + '; samesite=strict';
 		//javascript:window.location.reload();
 	}
 
 
 	// Get value from cookies.
-	function getCookie(cname) {
+	function block_accessibilite_getCookie(cname) {
 		var name = cname + "=";
 		var ca = document.cookie.split(';');
 		for(var i = 0; i < ca.length; i++) {
@@ -61,20 +75,33 @@
 
 
 	// met a jour la couleur de fond
-	function updateBackground(picker) {
-		background=picker.toRGBString();
-		setBackground(background);
-		recap();
+	function block_accessibilite_updateBackground(picker) {
+		block_accessibilite_background=picker.toRGBString();
+		block_accessibilite_setBackground(block_accessibilite_background);
+		block_accessibilite_recap();
 	}
 
 	// applique la couleur de fond
-	function setBackground(RGB) {
+	function block_accessibilite_setBackground(RGB) {
 		document.body.style.background = RGB;
+		
 		var all = document.getElementsByTagName("*");
+		
 		for (var i=0, max=all.length; i < max; i++) 
 		{
-			if (all[i].name != 'couleur_du_texte')
+			if ((all[i].name != 'couleur_du_texte') 
+				&& ( ! all[i].className.includes('collaboration')) 
+				&& ( ! all[i].className.includes('content')) 
+				&& ( ! all[i].className.includes('assessment')) 
+				&& ( ! all[i].className.includes('communication')) 
+				&& ! ( (all[i].tagName=='IMG') && all[i].parentElement.className.includes('collaboration'))
+				&& ! ( (all[i].tagName=='IMG') && all[i].parentElement.className.includes('content'))
+				&& ! ( (all[i].tagName=='IMG') && all[i].parentElement.className.includes('assessment'))
+				&& ! ( (all[i].tagName=='IMG') && all[i].parentElement.className.includes('communication'))
+				)
+			{
 				all[i].style.background = RGB;
+			}
 		}
 		for (const element of document.getElementsByClassName(".editor_atto_content"))
 		{
@@ -84,14 +111,14 @@
 	}
 
 	// met à jour la couleur du texte
-	function updateTextColor(picker) {
-		text=picker.toRGBString()
-		setTextColor(text);
-		recap();
+	function block_accessibilite_updateTextColor(picker) {
+		block_accessibilite_text=picker.toRGBString()
+		block_accessibilite_setTextColor(block_accessibilite_text);
+		block_accessibilite_recap();
 	}
 
 	// applique la couleur du texte
-	function setTextColor(RGB) {
+	function block_accessibilite_setTextColor(RGB) {
 
 		// document.body.style.color = RGB;
 		var all = document.getElementsByTagName("*");
@@ -101,94 +128,94 @@
 	}	
 
 	// change la taille du texte
-	function changerTaille(modif) {
-		taille = taille + modif*incTaille;
-		setTaille(taille);
-		recap();
+	function block_accessibilite_changerTaille(modif) {
+		block_accessibilite_taille = block_accessibilite_taille + modif*block_accessibilite_incTaille;
+		block_accessibilite_setTaille(block_accessibilite_taille);
+		block_accessibilite_recap();
 	}
 
 	// applique la taille du texte
-	function setTaille(taille) {
+	function block_accessibilite_setTaille(taille) {
 		document.getElementsByTagName("body")[0].style.fontSize = taille + "em";		
 	} 	
 
 	// change l'interligne
-	function changerInterligne(modif) {
-		interligne = interligne + modif *incInterligne;
-		setInterligne(interligne);
-		recap();
+	function block_accessibilite_changerInterligne(modif) {
+		block_accessibilite_interligne = block_accessibilite_interligne + modif *block_accessibilite_incInterligne;
+		block_accessibilite_setInterligne(block_accessibilite_interligne);
+		block_accessibilite_recap();
 	}
 	
 	// applique l'interligne
-	function setInterligne(interligne)
+	function block_accessibilite_setInterligne(interligne)
 	{
 		document.getElementsByTagName("body")[0].style.lineHeight = interligne + "em";		
 	} 	
 
 	// change l'espace entre les caractères
-	function changerEspaceCaractere(modif) {
-		espaceCaractere = espaceCaractere + modif * incEspaceCaractere;
-		setEspaceCaractere(espaceCaractere);
-		recap();
+	function block_accessibilite_changerEspaceCaractere(modif) {
+		block_accessibilite_espaceCaractere = block_accessibilite_espaceCaractere + modif * block_accessibilite_incEspaceCaractere;
+		block_accessibilite_setEspaceCaractere(block_accessibilite_espaceCaractere);
+		block_accessibilite_recap();
 	}
 	
 	// applique l'espace entre les caractères
-	function setEspaceCaractere(espaceCaractere) {
+	function block_accessibilite_setEspaceCaractere(espaceCaractere) {
 		document.getElementsByTagName("body")[0].style.letterSpacing = espaceCaractere + "em";		
 	} 	
 
 	// change  l'espace entre les mots
-	function changerEspaceMot(modif) {
-		espaceMot = espaceMot + modif * incEspaceMot;
-		setEspaceMot(espaceMot);
-		recap();
+	function block_accessibilite_changerEspaceMot(modif) {
+		block_accessibilite_espaceMot = block_accessibilite_espaceMot + modif * block_accessibilite_incEspaceMot;
+		block_accessibilite_setEspaceMot(block_accessibilite_espaceMot);
+		block_accessibilite_recap();
 	}
 	
 	// applique l'espace entre les mots
-	function setEspaceMot(espaceMot) {
+	function block_accessibilite_setEspaceMot(espaceMot) {
 		document.getElementsByTagName("body")[0].style.wordSpacing = espaceMot + "em";		
 	} 	
-	function changerPolice(lpolice)
+	function block_accessibilite_changerPolice(lpolice)
 	{
-		police=lpolice;
-		setPolice(police);
-		recap();
+		block_accessibilite_police=lpolice;
+		block_accessibilite_setPolice(block_accessibilite_police);
+		block_accessibilite_recap();
 	}
-	function changerBold()
+	function block_accessibilite_changerBold()
 	{
-		if (bold == 1)	
+		if (block_accessibilite_bold == 1)	
 		{
-			bold = 0;
+			block_accessibilite_bold = 0;
 		}
 		else	
 		{
-			bold = 1;
+			block_accessibilite_bold = 1;
 		}
-		setPolice(police);
-		recap();
+		block_accessibilite_setPolice(block_accessibilite_police);
+		block_accessibilite_recap();
 	}
-	function changerItalic()
+	function block_accessibilite_changerItalic()
 	{
-		if (italic == 1)	
+		if (block_accessibilite_italic == 1)	
 		{
-			italic = 0;
+			block_accessibilite_italic = 0;
 		}
 		else	
 		{
-			italic = 1;
+			block_accessibilite_italic = 1;
 		}
-		setPolice(police);
-		recap();
+		block_accessibilite_setPolice(block_accessibilite_police);
+		block_accessibilite_recap();
 	}
 	
 	// change la police de caractères
-	function setPolice(police) {
-		if (x != null)
-			document.head.removeChild(x);
-		x = document.createElement("STYLE");
+	function block_accessibilite_setPolice(police) {
+		if (block_accessibilite_x != null)
+			document.head.removeChild(block_accessibilite_x);
+		block_accessibilite_x = document.createElement("STYLE");
 		if (police == 'default')
 		{
-			if (bold==1 && italic==1)
+			if (block_accessibilite_bold==1 && block_accessibilite_italic==1)
 			{
 				var t = document.createTextNode("\
 					body,h1,h2,h3,h4,h5,h6,p,ul,ol,dl,input,textarea \
@@ -205,7 +232,7 @@
 					");
 			}
 			else
-				if (bold==1)
+				if (block_accessibilite_bold==1)
 				{
 					var t = document.createTextNode("\
 						body,h1,h2,h3,h4,h5,h6,p,ul,ol,dl,input,textarea \
@@ -220,7 +247,7 @@
 						");
 				}
 				else
-					if (italic==1)
+					if (block_accessibilite_italic==1)
 					{
 						var t = document.createTextNode("\
 								body,h1,h2,h3,h4,h5,h6,p,ul,ol,dl,input,textarea \
@@ -246,11 +273,11 @@
 							\
 							");
 					}
-			x.appendChild(t);
+			block_accessibilite_x.appendChild(t);
 		}
 		else
 		{
-			if (bold==1 && italic==1)
+			if (block_accessibilite_bold==1 && block_accessibilite_italic==1)
 				var t = document.createTextNode("\
 					body,h1,h2,h3,h4,h5,h6,p,ul,ol,dl,input,textarea \
 						{font-family: "+police+"; \
@@ -265,7 +292,7 @@
 					\
 					");
 			else
-				if (bold==1)
+				if (block_accessibilite_bold==1)
 					var t = document.createTextNode("\
 						body,h1,h2,h3,h4,h5,h6,p,ul,ol,dl,input,textarea \
 							{font-family: "+police+"; \
@@ -278,7 +305,7 @@
 						\
 						");
 				else
-					if (italic==1)
+					if (block_accessibilite_italic==1)
 						var t = document.createTextNode("\
 							body,h1,h2,h3,h4,h5,h6,p,ul,ol,dl,input,textarea \
 								{font-family: "+police+"; \
@@ -300,119 +327,206 @@
 								box-sizing: content-box;} \
 							\
 							");
-			x.appendChild(t);
+			block_accessibilite_x.appendChild(t);
 		}
-		document.head.appendChild(x);
-		font=police;
+		document.head.appendChild(block_accessibilite_x);
+		block_accessibilite_font=police;
+	}
+	
+
+	function block_accessibilite_monochrome()
+	{
+		if (block_accessibilite_mono==1)
+			block_accessibilite_mono = 0;
+		else
+			block_accessibilite_mono = 1; 
+      	var body = document.body;
+      	body.classList.toggle("monochrome");
+      	block_accessibilite_recap();
+	}
+	
+		// met a jour la couleur de texte 1
+	function block_accessibilite_updateColor1(picker) {
+		block_accessibilite_couleur1=picker.toRGBString();
+	}
+
+		// met a jour la couleur de texte 2
+	function block_accessibilite_updateColor2(picker) {
+		block_accessibilite_couleur2=picker.toRGBString();
+	}
+
+	function block_accessibilite_alterncolor()
+	{
+		let derniereCouleur = block_accessibilite_couleur1;
+
+	    function parcourirEtStyliser(element) {
+			
+			if (element.hasChildNodes()) {
+		       		element.childNodes.forEach(function(child) {
+		            parcourirEtStyliser(child);
+		        });
+		    } else if (element.nodeType === Node.TEXT_NODE) { // Utilisation de Node.TEXT_NODE
+		        if (element.textContent.trim() !== '') {
+		            let mots = element.textContent.split(' '); // Conserver les espaces tels quels
+		            let nouveauContenu = '';
+		            mots.forEach(function(mot, index) {
+						  let couleur = derniereCouleur = (derniereCouleur === block_accessibilite_couleur1) ? block_accessibilite_couleur2 : block_accessibilite_couleur1;
+		                //let couleur = (index % 2 === 0) ? 'red' : 'blue';
+		                if (mot !== '') {
+		                    mot = `<span style="color: ${couleur};">${mot}</span>`;
+		                }
+		                nouveauContenu += mot + (index < mots.length - 1 ? ' ' : ''); // Gestion des espaces
+		            });
+		            let tempDiv = document.createElement('div');
+		            tempDiv.innerHTML = nouveauContenu; // Pas de .trim()
+		            while (tempDiv.firstChild) {
+		                element.parentNode.insertBefore(tempDiv.firstChild, element);
+		            }
+		            element.parentNode.removeChild(element);
+		        }
+		    }
+	    }
+	
+	    parcourirEtStyliser(document.body);
+	    if (block_accessibilite_altern==1)
+			block_accessibilite_altern = 0;
+		else
+			block_accessibilite_altern = 1; 
+
+		block_accessibilite_recap();
+	}
+	
+		
+
+
+	function block_accessibilite_changeCursor(parametre)
+	{
+		block_accessibilite_num_cursor++;
+		if (parametre != undefined) {
+			block_accessibilite_num_cursor = parametre;
+		}		
+	
+		while (block_accessibilite_style.sheet.cssRules.length) {
+			block_accessibilite_style.sheet.deleteRule(0);
+		}
+		if (block_accessibilite_num_cursor >3) 
+		{
+			block_accessibilite_num_cursor=0;
+		}
+		if (block_accessibilite_num_cursor!=0)
+		{
+			block_accessibilite_style.sheet.insertRule("body ,input[type=checkbox],input[type=text], input:hover{ cursor: url('/blocks/accessibilite/cursor/auto"+block_accessibilite_num_cursor+".png') 15 0,auto !important; }", 0);
+			block_accessibilite_style.sheet.insertRule("a, button, button.btn, input[type=button], input[type=submit], input[type=reset],select { cursor: url('/blocks/accessibilite/cursor/hand"+block_accessibilite_num_cursor+".png') 20 0,auto !important; }", 1);
+			block_accessibilite_style.sheet.insertRule("input[type=text],input[type=password],input[type=number],textarea { cursor: url('/blocks/accessibilite/cursor/type"+block_accessibilite_num_cursor+".png') 30 30,auto !important; }", 2);
+			block_accessibilite_style.sheet.insertRule("button {color : red }", 1);
+		}
+		block_accessibilite_recap();
 	}
 	
 	// mis à jour du champ texte et du cookie
-	function recap() {
+	function block_accessibilite_recap() {
 		var texte="";
-//		config = getCookie('accessibilite');
-//		if (config!='')
-//		{
-		texte=background+':'+text+':'+taille+':'+interligne+':'+espaceCaractere+':'+espaceMot+':'+font+':'+bold+':'+italic;
-//		}
+		texte=block_accessibilite_background+':'+block_accessibilite_text+':'+block_accessibilite_taille+':'+block_accessibilite_interligne+':'+block_accessibilite_espaceCaractere+':'+block_accessibilite_espaceMot+':'+block_accessibilite_font+':'+block_accessibilite_bold+':'+block_accessibilite_italic+':'+block_accessibilite_couleur1+':'+block_accessibilite_couleur2+':'+block_accessibilite_altern+':'+block_accessibilite_mono+':'+block_accessibilite_num_cursor;
 		document.getElementsByName('block_accessibilite_code')[0].value=texte;
-//		document.getElementsByName('block_accessibilite_code')[0].value=texte;
-		setCookie('accessibilite',texte,30);
+		block_accessibilite_setCookie('accessibilite',texte,30);
 	}
 	
 	// initialise les données par la lecture du cookie
-	function init() {
-/*		config = getCookie('accessibilite');
-		if (config!='')
-		{
-			res=config.split(':');
-			background=res[0];
-			text=res[1];
-			taille=parseFloat(res[2],10);
-			interligne=parseFloat(res[3],10);
-			espaceCaractere=parseFloat(res[4],10);
-			espaceMot=parseFloat(res[5],10);
-			police=res[6];
-			bold=res[7];
-			italic=res[8];
-			setConfig();
-			recap();
-		}
-		else
-		{
-*/			var elementcode=document.getElementById('accessibilite-code');
+	function block_accessibilite_init() {
+			var elementcode=document.getElementById('accessibilite-code');
 			config =elementcode.dataset.code
 			if (config!='')
 			{
 				res=config.split(':');
-				background=res[0];
-				text=res[1];
-				taille=parseFloat(res[2],10);
-				interligne=parseFloat(res[3],10);
-				espaceCaractere=parseFloat(res[4],10);
-				espaceMot=parseFloat(res[5],10);
-				police=res[6];
-				bold=res[7];
-				italic=res[8];
-				setConfig();
-				recap();
+				block_accessibilite_background=res[0];
+				block_accessibilite_text=res[1];
+				block_accessibilite_taille=parseFloat(res[2],10);
+				block_accessibilite_interligne=parseFloat(res[3],10);
+				block_accessibilite_espaceCaractere=parseFloat(res[4],10);
+				block_accessibilite_espaceMot=parseFloat(res[5],10);
+				block_accessibilite_police=res[6];
+				block_accessibilite_bold=res[7];
+				block_accessibilite_italic=res[8];
+				block_accessibilite_couleur1=res[9];
+				block_accessibilite_couleur2=res[10];
+				block_accessibilite_altern=res[11];
+				block_accessibilite_mono=res[12];
+				block_accessibilite_num_cursor = res[13];
+
+				block_accessibilite_setConfig();
+				block_accessibilite_recap();
 			}
 			else
 			{
-				background='rgb(255,255,255)';
-				text='rgb(0,0,0)';
-				taille=1;
-				interligne=1;
-				espaceCaractere=0;
-				espaceMot=.1;
-				police='helvetica';
-				bold=0;
-				italic=0;
+				block_accessibilite_background='rgb(255,255,255)';
+				block_accessibilite_text='rgb(0,0,0)';
+				block_accessibilite_taille=1;
+				block_accessibilite_interligne=1;
+				block_accessibilite_espaceCaractere=0;
+				block_accessibilite_espaceMot=.1;
+				block_accessibilite_police='helvetica';
+				block_accessibilite_bold=0;
+				block_accessibilite_italic=0;
+				block_accessibilite_altern=0;
+				block_accessibilite_mono=0;
+				block_accessibilite_num_cursor = 0;	
 			}
 //		}
 	}
 	
-	function RAZ() {
-		background='rgb(255,255,255)';
-		text='rgb(0,0,0)';
-		taille=1;
-		interligne=1;
-		espaceCaractere=0;
-		espaceMot=.1;
-		police='default';
-		bold=0;
-		italic=0;
-		setConfig();
+	function block_accessibilite_RAZ() {
+		block_accessibilite_background='rgb(255,255,255)';
+		block_accessibilite_text='rgb(0,0,0)';
+		block_accessibilite_taille=1;
+		block_accessibilite_interligne=1;
+		block_accessibilite_espaceCaractere=0;
+		block_accessibilite_espaceMot=.1;
+		block_accessibilite_police='default';
+		block_accessibilite_bold=0;
+		block_accessibilite_italic=0;
+		block_accessibilite_altern=0;
+		block_accessibilite_mono=0;
+		block_accessibilite_num_cursor = 0;
+		block_accessibilite_setConfig();
 		document.getElementsByName('block_accessibilite_code')[0].value='';
-		setCookie('accessibilite','',0);
-		//TODO
+		block_accessibilite_setCookie('accessibilite','',0);
 		location.reload();
 	}
 	
-	function AppliquerValeur() {
+	function block_accessibilite_AppliquerValeur() {
 		config=document.getElementsByName('block_accessibilite_code')[0].value;
 		res=config.split(':');
-		background=res[0];
-		text=res[1];
-		taille=parseFloat(res[2],10);
-		interligne=parseFloat(res[3],10);
-		espaceCaractere=parseFloat(res[4],10);
-		espaceMot=parseFloat(res[5],10);
-		police=res[6];
-		bold=res[7];
-		italic=res[8];
-		setConfig();
-		recap();
+		block_accessibilite_background=res[0];
+		block_accessibilite_text=res[1];
+		block_accessibilite_taille=parseFloat(res[2],10);
+		block_accessibilite_interligne=parseFloat(res[3],10);
+		block_accessibilite_espaceCaractere=parseFloat(res[4],10);
+		block_accessibilite_espaceMot=parseFloat(res[5],10);
+		block_accessibilite_police=res[6];
+		block_accessibilite_bold=res[7];
+		block_accessibilite_italic=res[8];
+		block_accessibilite_couleur1=res[9];
+		block_accessibilite_couleur2=res[10];
+		block_accessibilite_altern=res[11];
+		block_accessibilite_mono=res[12];
+		block_accessibilite_num_cursor = res[13];
+		block_accessibilite_setConfig();
+		block_accessibilite_recap();
 	}
-	function setConfig() {
-		setBackground(background);
-		setTextColor(text);
-		setTaille(taille);
-		setInterligne(interligne);
-		setEspaceCaractere(espaceCaractere);
-		setEspaceMot(espaceMot);
-		setPolice(police);
+	function block_accessibilite_setConfig() {
+		block_accessibilite_setBackground(block_accessibilite_background);
+		block_accessibilite_setTextColor(block_accessibilite_text);
+		block_accessibilite_setTaille(block_accessibilite_taille);
+		block_accessibilite_setInterligne(block_accessibilite_interligne);
+		block_accessibilite_setEspaceCaractere(block_accessibilite_espaceCaractere);
+		block_accessibilite_setEspaceMot(block_accessibilite_espaceMot);
+		block_accessibilite_setPolice(block_accessibilite_police);
+		if (block_accessibilite_altern == 1)
+			block_accessibilite_alterncolor();
+		if (block_accessibilite_mono == 1)
+			block_accessibilite_monochrome();
+		block_accessibilite_changeCursor(block_accessibilite_num_cursor);
 	}
 	
-	init();
-	
+	block_accessibilite_init();
 	

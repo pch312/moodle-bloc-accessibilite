@@ -13,13 +13,15 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
- * Enregistrements des paramétres de l'utilisateur
+ * Version
  *
  * @package     block_accessibilite
  * @copyright   2022 Philippe CHATAIGNER
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 require_once(__DIR__. '/../../config.php');
 require_once('lib.php');
 require_once('accessibilite_form.php');
@@ -28,14 +30,14 @@ global $OUTPUT, $PAGE;
 require_login();
 $PAGE->set_context(context_system::instance());
 
-$simplehtml = new accessibilite_form();
+$accessibiliteform = new accessibilite_form();
 
 
-if ($simplehtml->is_cancelled()) {
+if ($accessibiliteform->is_cancelled()) {
     // Cancelled forms redirect to the course main page.
     $courseurl = new moodle_url('/my' , [ 'sesskey' => sesskey ()]);
     redirect($courseurl);
-} else if ($fromform = $simplehtml->get_data()) {
+} else if ($fromform = $accessibiliteform->get_data()) {
     // We need to add code to appropriately act on and store the submitted data
     // but for now we will just redirect back to the course main page.
     $url = $fromform->block_accessibilite_url;

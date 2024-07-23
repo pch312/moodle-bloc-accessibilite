@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Fichier libraire
  *
@@ -29,14 +30,13 @@ function block_accessibilite_before_footer() {
     $PAGE->requires->js('/blocks/accessibilite/js/jscolor.js');
     $PAGE->requires->js('/blocks/accessibilite/js/accessibilite.js');
 }
-
 /**
  * block_accessibilite_render_navbar_output
  * @return string
  */
 function block_accessibilite_render_navbar_output() {
-    global $USER;
-    return '<span id="accessibilite-code" data-code="'.block_accessibilite_read().'"></span>';
+    $retour = '<span id="accessibilite-code" data-code="'.block_accessibilite_read().'"></span>';
+    return $retour;
 }
 
 /**
@@ -44,16 +44,14 @@ function block_accessibilite_render_navbar_output() {
  * @return string|mixed|NULL
  */
 function block_accessibilite_read() {
-    global $USER;
     return get_user_preferences('block_accessibilite_code');
 }
 
 /**
  * block_accessibilite_store
- * @param unknown $pcode
+ * @param string $pcode
  */
 function block_accessibilite_store($pcode) {
-    global $USER;
     set_user_preference('block_accessibilite_code', $pcode);
 }
 

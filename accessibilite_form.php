@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Formulaire d'enregistrement de la configuration
  *
@@ -44,11 +45,18 @@ class accessibilite_form extends moodleform {
     public function definition() {
 
         $mform =& $this->_form;
-        $url = $this->_customdata['url'];
+        if (! is_null($this->_customdata)) {
+            $url = $this->_customdata['url'];
+        }
         $mform->setType('block_accessibilite', PARAM_NOTAGS); // Set type of element.
         $mform->addElement('hidden', 'block_accessibilite_code', '');
-        $mform->addElement('hidden', 'block_accessibilite_url', $url);
-        $buttonarray = array();
+        $mform->setType('block_accessibilite_code', PARAM_RAW);
+        if (isset($url)) {
+            $mform->addElement('hidden', 'block_accessibilite_url', $url);
+        } else {
+            $mform->addElement('hidden', 'block_accessibilite_url', '/my');
+        }
+        $mform->setType('block_accessibilite_url', PARAM_RAW);
         $buttonarray[] = $mform->createElement('submit', 'submitbutton', get_string('store', 'block_accessibilite'));
         $buttonarray[] = $mform->createElement('submit', 'raz', get_string('reset', 'block_accessibilite'));
         $mform->addGroup($buttonarray, 'buttonar', '', ' ', false);

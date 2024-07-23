@@ -3,19 +3,19 @@
     <library>
         <location>js/jscolor.js</location>
         <name>JScolor</name>
-        <version>2.4.8</version>
+        <version>2.5.2</version>
         <license>GPL</license>
         <licenseversion>3.0</licenseversion>
     </library>
     <library>
-        <location>/font/opendyslexic3-regular-webfont.ttf</location>
+        <location>/css/opendyslexic3-regular-webfont.ttf</location>
         <name>gOpenDyslexic</name>
         <version></version>
         <license>https://opendyslexic.org/license</license>
         <licenseversion></licenseversion>
     </library>
     <library>
-        <location>/font/opendyslexic3-regular-webfont.wof</location>
+        <location>/css/opendyslexic3-regular-webfont.wof</location>
         <name>gOpenDyslexic</name>
         <version></version>
         <license>https://opendyslexic.org/license</license>

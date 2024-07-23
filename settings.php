@@ -15,23 +15,19 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Fichier de langue vide
+ * Parametre du plugin
  *
  * @package     block_accessibilite
  * @copyright   2022 Philippe CHATAIGNER
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-$string['pluginname'] = '';
-$string['accessibilite'] = '';
-$string['backgroundcolor'] = '';
-$string['textcolor'] = '';
-$string['textsize'] = '';
-$string['linespacing'] = '';
-$string['spacecharacter'] = '';
-$string['spaceword'] = '';
-$string['font'] = '';
-$string['bold'] = '';
-$string['italic'] = '';
-$string['reset'] = '';
-$string['store'] = '';
-$string['privacy:metadata:block_accessibilite_change_presentation'] = '';
+
+defined('MOODLE_INTERNAL') || die;
+
+if ($ADMIN->fulltree) {
+
+    $settings->add(new admin_setting_configtext('block_accessibilite/name',
+        new lang_string('name', 'block_accessibilite'),
+        new lang_string('name_desc', 'block_accessibilite'), '', PARAM_RAW));
+
+}

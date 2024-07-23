@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Corps du bloc
  *
@@ -38,6 +39,15 @@ class block_accessibilite extends block_base {
     }
 
     /**
+     *
+     * {@inheritDoc}
+     * @see block_base::has_config()
+     */
+    public function has_config() {
+        return true;
+    }
+
+    /**
      * Content of the bloc
      * {@inheritDoc}
      * @see block_base::get_content()
@@ -49,106 +59,284 @@ class block_accessibilite extends block_base {
         global $USER, $CFG, $DB;
 
         require_once($CFG->dirroot . '/user/profile/lib.php');
-        $myuser = $DB->get_record('user', array('id' => $USER->id));
+
+        $myuser = $DB->get_record('user', ['id' => $USER->id]);
+        if ( ! $myuser) {
+            return;
+        }
         profile_load_data($myuser);
         $this->content         = new stdClass;
-        $this->title = get_string('accessibilite', 'block_accessibilite');
-        $this->content->text  = '<table>';
-        $this->content->text  .= '<tr>';
-        $this->content->text  .= '<td>';
-        $this->content->text .= '    <label for="couleur_de_fond">'.get_string('backgroundcolor', 'block_accessibilite').'</label>';
-        $this->content->text  .= '</td>';
-        $this->content->text  .= '<td>';
-        $this->content->text  .= '    <button class="btn btn-primary" name="couleur_de_fond" ';
-        $this->content->text  .= 'data-jscolor="{preset:\'large\', position:\'right\',closeButton:\'true\', closeText:\'Fermer\',';
-        $this->content->text  .= '            onChange:\'updateBackground(this)\'}"></button>';
-        $this->content->text  .= '</td>';
-        $this->content->text  .= '</tr>';
-        $this->content->text  .= '<tr>';
-        $this->content->text  .= '<td>';
-        $this->content->text  .= '    <label for="couleur_du_texte">'.get_string('textcolor', 'block_accessibilite').'</label>';
-        $this->content->text  .= '</td>';
-        $this->content->text  .= '<td>';
-        $this->content->text  .= '<button class="btn btn-primary" name="couleur_du_texte" ';
-        $this->content->text  .= 'data-jscolor="{preset:\'large\',';
-        $this->content->text  .= 'position:\'right\',closeButton:\'true\', closeText:\'Fermer\',';
-        $this->content->text  .= '            onChange:\'updateTextColor(this)\',value:\'#000000\'}"></button>';
-        $this->content->text  .= '';
-        $this->content->text  .= '</td>';
-        $this->content->text  .= '</tr>';
-        $this->content->text  .= '<tr>';
-        $this->content->text  .= '<td>';
-        $this->content->text  .= '    <label for="taille_du_texte">'.get_string('textsize', 'block_accessibilite').'</label>';
-        $this->content->text  .= '</td>';
-        $this->content->text  .= '<td>';
-        $this->content->text  .= '    <button class="btn btn-primary" name="taille_du_texte" ';
-        $this->content->text  .= 'onclick="changerTaille(+1)">+</button>';
-        $this->content->text  .= '    <button class="btn btn-primary" name="taille_du_texte" ';
-        $this->content->text  .= 'onclick="changerTaille(-1)">-</button>';
-        $this->content->text  .= '';
-        $this->content->text  .= '</td>';
-        $this->content->text  .= '</tr>';
-        $this->content->text  .= '<tr>';
-        $this->content->text  .= '<td>';
-        $this->content->text  .= '    <label for="Interligne">'.get_string('linespacing', 'block_accessibilite').'</label>';
-        $this->content->text  .= '</td>';
-        $this->content->text  .= '<td>';
-        $this->content->text  .= '    <button class="btn btn-primary" name="Interligne"';
-        $this->content->text  .= ' onclick="changerInterligne(+1)">+</button>';
-        $this->content->text  .= '    <button class="btn btn-primary" name="Interligne"';
-        $this->content->text  .= ' onclick="changerInterligne(-1)">-</button>';
-        $this->content->text  .= '</td>';
-        $this->content->text  .= '</tr>';
-        $this->content->text  .= '<tr>';
-        $this->content->text  .= '<td>';
-        $this->content->text  .= '    <label for="EspaceCaractere">'.get_string('spacecharacter', 'block_accessibilite').'</label>';
-        $this->content->text  .= '</td>';
-        $this->content->text  .= '<td>';
-        $this->content->text  .= '    <button class="btn btn-primary" name="EspaceCaractere"';
-        $this->content->text  .= ' onclick="changerEspaceCaractere(+1)">+</button>';
-        $this->content->text  .= '    <button class="btn btn-primary" name="EspaceCaractere"';
-        $this->content->text  .= ' onclick="changerEspaceCaractere(-1)">-</button>';
-        $this->content->text  .= '</td>';
-        $this->content->text  .= '</tr>';
-        $this->content->text  .= '<tr>';
-        $this->content->text  .= '<td>';
-        $this->content->text  .= '    <label for="EspaceMot">'.get_string('spaceword', 'block_accessibilite').'</label>';
-        $this->content->text  .= '</td>';
-        $this->content->text  .= '<td>';
-        $this->content->text  .= '    <button class="btn btn-primary" name="EspaceMot" onclick="changerEspaceMot(+1)">+</button>';
-        $this->content->text  .= '    <button class="btn btn-primary" name="EspaceMot" onclick="changerEspaceMot(-1)">-</button>';
-        $this->content->text  .= '</td>';
-        $this->content->text  .= '</tr>';
-        $this->content->text  .= '<tr>';
-        $this->content->text  .= '<td rowspan="2" valign="center">';
-        $this->content->text  .= '    <label for="police_du_texte">'.get_string('font', 'block_accessibilite').'</label>';
-        $this->content->text  .= '</td>';
-        $this->content->text  .= '<td>';
-        $this->content->text  .= '    <select class="custom-select" name="police_du_texte" onchange="changerPolice(this.value)">';
-        $this->content->text  .= '<option value="default">Défaut</option>';
-        $this->content->text  .= '<option value="helvetica">Helvetica</option>';
-        $this->content->text  .= '<option value="verdana">Verdana</option>';
-        $this->content->text  .= '<option value="comic sans ms">Comic</option>';
-        $this->content->text  .= '<option value="opendyslexic">Dyslexic</option>';
-        $this->content->text  .= '</select>';
-        $this->content->text  .= '</td>';
-        $this->content->text  .= '</tr>';
-        $this->content->text  .= '<tr>';
-        $this->content->text  .= '<td>';
-        $this->content->text  .= '    <button class="btn btn-primary" name="EspaceMot" ';
-        $this->content->text  .= 'onclick="changerBold()">'.get_string('bold', 'block_accessibilite').'</button>';
-        $this->content->text  .= '    <button class="btn btn-primary" name="EspaceMot" ';
-        $this->content->text  .= 'onclick="changerItalic()">'.get_string('italic', 'block_accessibilite').'</button>';
-        $this->content->text  .= '';
-        $this->content->text  .= '</td>';
-        $this->content->text  .= '</tr>';
-        $this->content->text  .= '</table>';
-        $this->content->footer = '';
+        $this->title = get_config('block_accessibilite', 'name');
+        if ( ! $this->title) {
+            $this->title = get_string('accessibilite', 'block_accessibilite');
+        }
 
-        $toform = array('url' => $this->page->url);
+        $this->content->text  = '<div class="container">';
+        $this->content->text  .= '  <style>';
+        $this->content->text  .= '    .container {';
+        $this->content->text  .= '      display: flex;';
+        $this->content->text  .= '      flex-direction: column;';
+        $this->content->text  .= '      gap: 8px;';
+        $this->content->text  .= '      width: 250px;';
+        $this->content->text  .= '      align-items: center;';
+        $this->content->text  .= '    }';
+        $this->content->text  .= '    .element {';
+        $this->content->text  .= '      display: flex;';
+        $this->content->text  .= '      align-self: stretch;';
+        $this->content->text  .= '      justify-content: space-between;';
+        $this->content->text  .= '      align-items: center;';
+        $this->content->text  .= '    }';
+        $this->content->text  .= '    .fontGrid {';
+        $this->content->text  .= '      display: grid;';
+        $this->content->text  .= '      gap: 2px;';
+        $this->content->text  .= '      grid-template-columns: 1fr 1fr;';
+        $this->content->text  .= '    }';
+        $this->content->text  .= '    .grid-column-2 {';
+        $this->content->text  .= '      grid-column: span 2;';
+        $this->content->text  .= '    }';
+        $this->content->text  .= '  </style>';
+        $this->content->text  .= '  <div class="element">';
+        $this->content->text  .= '    <label for="couleur_de_fond">Couleur du fond</label>';
+        $this->content->text  .= '    <button';
+        $this->content->text  .= '      class="btn btn-primary jscolor"';
+        $this->content->text  .= '      name="couleur_de_fond"';
+        $this->content->text  .= '      data-jscolor="{preset:\'large\', position:\'right\',closeButton:\'true\','.
+            'closeText:\'Fermer\', onChange:\'block_accessibilite_updateBackground(this)\'}"';
+        $this->content->text  .= '      type="button"';
+        $this->content->text  .= '      style="';
+        $this->content->text  .= '        min-width: 32px !important;';
+        $this->content->text  .= '        background-image: linear-gradient(';
+        $this->content->text  .= '            to right,';
+        $this->content->text  .= '            rgb(255, 255, 255) 0%,';
+        $this->content->text  .= '            rgb(255, 255, 255) 100%';
+        $this->content->text  .= '          ),';
+        $this->content->text  .= '          url(\'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMElE'.
+            'QVQ4T2OcOXPmfwY84OzZs/ikGRhHDRgWYZCWloY3HRgbG+NPB6MGMDAO/TAAAN6LP+lFacGZAAAAAElFTkSuQmCC\') !important;';
+        $this->content->text  .= '        background-position: left top, left top !important;';
+        $this->content->text  .= '        background-size: auto, 16px 16px !important;';
+        $this->content->text  .= '        background-repeat: repeat, repeat !important;';
+        $this->content->text  .= '        background-origin: padding-box, padding-box !important;';
+        $this->content->text  .= '      "';
+        $this->content->text  .= '      data-current-color="#FFFFFF"';
+        $this->content->text  .= '    >';
+        $this->content->text  .= '      &nbsp;';
+        $this->content->text  .= '    </button>';
+        $this->content->text  .= '  </div>';
+        $this->content->text  .= '  <div class="element">';
+        $this->content->text  .= '    <label for="couleur_du_texte">Couleur du texte</label>';
+        $this->content->text  .= '    <button';
+        $this->content->text  .= '      class="btn btn-primary jscolor"';
+        $this->content->text  .= '      name="couleur_du_texte"';
+        $this->content->text  .= '      data-jscolor="{preset:\'large\',position:\'right\',closeButton:\'true\', '.
+            'closeText:\'Fermer\', onChange:\'block_accessibilite_updateTextColor(this)\',value:\'#000000\'}"';
+        $this->content->text  .= '      type="button"';
+        $this->content->text  .= '      style="';
+        $this->content->text  .= '        min-width: 32px !important;';
+        $this->content->text  .= '        background-image: linear-gradient(';
+        $this->content->text  .= '            to right,';
+        $this->content->text  .= '            rgb(0, 0, 0) 0%,';
+        $this->content->text  .= '            rgb(0, 0, 0) 100%';
+        $this->content->text  .= '          ),';
+        $this->content->text  .= '          url(\'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMElEQVQ4T'.
+            '2OcOXPmfwY84OzZs/ikGRhHDRgWYZCWloY3HRgbG+NPB6MGMDAO/TAAAN6LP+lFacGZAAAAAElFTkSuQmCC\') !important;';
+        $this->content->text  .= '        background-position: left top, left top !important;';
+        $this->content->text  .= '        background-size: auto, 16px 16px !important;';
+        $this->content->text  .= '        background-repeat: repeat, repeat !important;';
+        $this->content->text  .= '        background-origin: padding-box, padding-box !important;';
+        $this->content->text  .= '      "';
+        $this->content->text  .= '      data-current-color="#000000"';
+        $this->content->text  .= '    >';
+        $this->content->text  .= '      &nbsp;';
+        $this->content->text  .= '    </button>';
+        $this->content->text  .= '  </div>';
+        $this->content->text  .= '  <div class="element">';
+        $this->content->text  .= '    <label for="altern_text">Mots alternés</label>';
+        $this->content->text  .= '    <div class="element">';
+        $this->content->text  .= '      <button';
+        $this->content->text  .= '        class="btn btn-primary jscolor"';
+        $this->content->text  .= '        name="couleur_mot1"';
+        $this->content->text  .= '        data-jscolor="{preset:\'large\', position:\'right\',closeButton:\'true\', '.
+            'closeText:\'Fermer\', onChange:\'block_accessibilite_updateColor1(this)\'}"';
+        $this->content->text  .= '        type="button"';
+        $this->content->text  .= '        style="';
+        $this->content->text  .= '          min-width: 32px !important;';
+        $this->content->text  .= '          background-image: linear-gradient(';
+        $this->content->text  .= '              to right,';
+        $this->content->text  .= '              rgb(255, 255, 255) 0%,';
+        $this->content->text  .= '              rgb(255, 255, 255) 100%';
+        $this->content->text  .= '            ),';
+        $this->content->text  .= '            url(\'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMElEQVQ'.
+            '4T2OcOXPmfwY84OzZs/ikGRhHDRgWYZCWloY3HRgbG+NPB6MGMDAO/TAAAN6LP+lFacGZAAAAAElFTkSuQmCC\') !important;';
+        $this->content->text  .= '          background-position: left top, left top !important;';
+        $this->content->text  .= '          background-size: auto, 16px 16px !important;';
+        $this->content->text  .= '          background-repeat: repeat, repeat !important;';
+        $this->content->text  .= '          background-origin: padding-box, padding-box !important;';
+        $this->content->text  .= '        "';
+        $this->content->text  .= '        data-current-color="#FFFFFF"';
+        $this->content->text  .= '      >';
+        $this->content->text  .= '        &nbsp;';
+        $this->content->text  .= '      </button>';
+        $this->content->text  .= '      <button';
+        $this->content->text  .= '        class="btn btn-primary jscolor"';
+        $this->content->text  .= '        name="couleur_mot2"';
+        $this->content->text  .= '        data-jscolor="{preset:\'large\', position:\'right\',closeButton:\'true\', '.
+            'closeText:\'Fermer\', onChange:\'block_accessibilite_updateColor2(this)\'}"';
+        $this->content->text  .= '        type="button"';
+        $this->content->text  .= '        style="';
+        $this->content->text  .= '          min-width: 32px !important;';
+        $this->content->text  .= '          background-image: linear-gradient(';
+        $this->content->text  .= '              to right,';
+        $this->content->text  .= '              rgb(255, 255, 255) 0%,';
+        $this->content->text  .= '              rgb(255, 255, 255) 100%';
+        $this->content->text  .= '            ),';
+        $this->content->text  .= '            url(\'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMElEQVQ'.
+            '4T2OcOXPmfwY84OzZs/ikGRhHDRgWYZCWloY3HRgbG+NPB6MGMDAO/TAAAN6LP+lFacGZAAAAAElFTkSuQmCC\') !important;';
+        $this->content->text  .= '          background-position: left top, left top !important;';
+        $this->content->text  .= '          background-size: auto, 16px 16px !important;';
+        $this->content->text  .= '          background-repeat: repeat, repeat !important;';
+        $this->content->text  .= '          background-origin: padding-box, padding-box !important;';
+        $this->content->text  .= '        "';
+        $this->content->text  .= '        data-current-color="#FFFFFF"';
+        $this->content->text  .= '      >';
+        $this->content->text  .= '        &nbsp;';
+        $this->content->text  .= '      </button>';
+        $this->content->text  .= '      <button';
+        $this->content->text  .= '        class="btn btn-primary"';
+        $this->content->text  .= '        name="couleur_altern"';
+        $this->content->text  .= '        onclick="block_accessibilite_alterncolor()"';
+        $this->content->text  .= '      >';
+        $this->content->text  .= '        OK';
+        $this->content->text  .= '      </button>';
+        $this->content->text  .= '    </div>';
+        $this->content->text  .= '  </div>';
+        $this->content->text  .= '  <button';
+        $this->content->text  .= '    class="btn btn-primary"';
+        $this->content->text  .= '    name="monochrome"';
+        $this->content->text  .= '    onclick="block_accessibilite_monochrome()"';
+        $this->content->text  .= '  >';
+        $this->content->text  .= '    Monochrome';
+        $this->content->text  .= '  </button>';
+        $this->content->text  .= '  <div class="element">';
+        $this->content->text  .= '    <label for="taille_du_texte">Taille du texte</label>';
+        $this->content->text  .= '    <div class="element">';
+        $this->content->text  .= '      <button';
+        $this->content->text  .= '        class="btn btn-primary"';
+        $this->content->text  .= '        name="taille_du_texte"';
+        $this->content->text  .= '        onclick="block_accessibilite_changerTaille(+1)"';
+        $this->content->text  .= '      >';
+        $this->content->text  .= '        +';
+        $this->content->text  .= '      </button>&nbsp;';
+        $this->content->text  .= '      <button';
+        $this->content->text  .= '        class="btn btn-primary"';
+        $this->content->text  .= '        name="taille_du_texte"';
+        $this->content->text  .= '        onclick="block_accessibilite_changerTaille(-1)"';
+        $this->content->text  .= '      >';
+        $this->content->text  .= '        -';
+        $this->content->text  .= '      </button>';
+        $this->content->text  .= '    </div>';
+        $this->content->text  .= '  </div>';
+        $this->content->text  .= '  <div class="element">';
+        $this->content->text  .= '    <label for="Interligne">Interligne</label>';
+        $this->content->text  .= '    <div class="element">';
+        $this->content->text  .= '      <button';
+        $this->content->text  .= '        class="btn btn-primary"';
+        $this->content->text  .= '        name="Interligne"';
+        $this->content->text  .= '        onclick="block_accessibilite_changerInterligne(+1)"';
+        $this->content->text  .= '      >';
+        $this->content->text  .= '        +';
+        $this->content->text  .= '      </button>&nbsp;';
+        $this->content->text  .= '      <button';
+        $this->content->text  .= '        class="btn btn-primary"';
+        $this->content->text  .= '        name="Interligne"';
+        $this->content->text  .= '        onclick="block_accessibilite_changerInterligne(-1)"';
+        $this->content->text  .= '      >';
+        $this->content->text  .= '        -';
+        $this->content->text  .= '      </button>';
+        $this->content->text  .= '    </div>';
+        $this->content->text  .= '  </div>';
+        $this->content->text  .= '  <div class="element">';
+        $this->content->text  .= '    <label for="EspaceCaractere">Espace entre les caractères</label>';
+        $this->content->text  .= '    <div class="element">';
+        $this->content->text  .= '      <button';
+        $this->content->text  .= '        class="btn btn-primary"';
+        $this->content->text  .= '        name="EspaceCaractere"';
+        $this->content->text  .= '        onclick="block_accessibilite_changerEspaceCaractere(+1)"';
+        $this->content->text  .= '      >';
+        $this->content->text  .= '        +';
+        $this->content->text  .= '      </button>&nbsp;';
+        $this->content->text  .= '      <button';
+        $this->content->text  .= '        class="btn btn-primary"';
+        $this->content->text  .= '        name="EspaceCaractere"';
+        $this->content->text  .= '        onclick="block_accessibilite_changerEspaceCaractere(-1)"';
+        $this->content->text  .= '      >';
+        $this->content->text  .= '        -';
+        $this->content->text  .= '      </button>';
+        $this->content->text  .= '    </div>';
+        $this->content->text  .= '  </div>';
+        $this->content->text  .= '  <div class="element">';
+        $this->content->text  .= '    <label for="EspaceMot">Espace entre les mots</label>';
+        $this->content->text  .= '    <div class="element">';
+        $this->content->text  .= '      <button';
+        $this->content->text  .= '        class="btn btn-primary"';
+        $this->content->text  .= '        name="EspaceMot"';
+        $this->content->text  .= '        onclick="block_accessibilite_changerEspaceMot(+1)"';
+        $this->content->text  .= '      >';
+        $this->content->text  .= '        +';
+        $this->content->text  .= '      </button>&nbsp;';
+        $this->content->text  .= '      <button';
+        $this->content->text  .= '        class="btn btn-primary"';
+        $this->content->text  .= '        name="EspaceMot"';
+        $this->content->text  .= '        onclick="block_accessibilite_changerEspaceMot(-1)"';
+        $this->content->text  .= '      >';
+        $this->content->text  .= '        -';
+        $this->content->text  .= '      </button>';
+        $this->content->text  .= '    </div>';
+        $this->content->text  .= '  </div>';
+        $this->content->text  .= '  <div class="element">';
+        $this->content->text  .= '    <label for="police_du_texte">Police de caractères</label>';
+        $this->content->text  .= '    <div class="fontGrid">';
+        $this->content->text  .= '      <select';
+        $this->content->text  .= '        class="custom-select grid-column-2"';
+        $this->content->text  .= '        name="police_du_texte"';
+        $this->content->text  .= '        onchange="block_accessibilite_changerPolice(this.value)"';
+        $this->content->text  .= '      >';
+        $this->content->text  .= '        <option value="default">Défaut</option>';
+        $this->content->text  .= '        <option value="helvetica">Helvetica</option>';
+        $this->content->text  .= '        <option value="verdana">Verdana</option>';
+        $this->content->text  .= '        <option value="comic sans ms">Comic</option>';
+        $this->content->text  .= '        <option value="opendyslexic">Dyslexic</option>';
+        $this->content->text  .= '      </select>';
+        $this->content->text  .= '      <button';
+        $this->content->text  .= '        class="btn btn-primary"';
+        $this->content->text  .= '        name="EspaceMot"';
+        $this->content->text  .= '        onclick="block_accessibilite_changerBold()"';
+        $this->content->text  .= '      >';
+        $this->content->text  .= '        Gras';
+        $this->content->text  .= '      </button>';
+        $this->content->text  .= '      <button';
+        $this->content->text  .= '        class="btn btn-primary"';
+        $this->content->text  .= '        name="EspaceMot"';
+        $this->content->text  .= '        onclick="block_accessibilite_changerItalic()"';
+        $this->content->text  .= '      >';
+        $this->content->text  .= '        Italique';
+        $this->content->text  .= '      </button>';
+        $this->content->text  .= '    </div>';
+        $this->content->text  .= '  </div>';
+        $this->content->text  .= '  <div></div>';
+        $this->content->text  .= '  <button';
+        $this->content->text  .= '    class="btn btn-primary"';
+        $this->content->text  .= '    name="Curseur"';
+        $this->content->text  .= '    onclick="block_accessibilite_changeCursor()"';
+        $this->content->text  .= '  >';
+        $this->content->text  .= '    Curseur';
+        $this->content->text  .= '  </button>';
+        $this->content->text  .= '</div>';
+
+        $toform = ['url' => $this->page->url];
         $simplehtml = new accessibilite_form("/blocks/accessibilite/view.php", $toform, 'post', '', null, true, null);
 
         $this->content->text .= $simplehtml->render();
+
         if ($this->content !== null) {
             return $this->content;
         }
@@ -166,7 +354,7 @@ class block_accessibilite extends block_base {
 
     /**
      * Specific défintion
-     * @param form $mform
+     * @param moodleform $mform
      */
     protected function specific_definition($mform) {
 

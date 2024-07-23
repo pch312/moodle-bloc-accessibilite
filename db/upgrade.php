@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Access
  *
@@ -23,7 +24,7 @@
 
 /**
  * Upgrade
- * @param unknown $oldversion
+ * @param int $oldversion
  * @return boolean
  */
 function xmldb_block_accessibilite_upgrade($oldversion) {
