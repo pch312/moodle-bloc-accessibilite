@@ -96,7 +96,7 @@ class block_accessibilite extends block_base {
         $this->content->text  .= '    }';
         $this->content->text  .= '  </style>';
         $this->content->text  .= '  <div class="element">';
-        $this->content->text  .= '    <label for="couleur_de_fond">Couleur du fond</label>';
+        $this->content->text  .= '    <label for="couleur_de_fond">'.get_string('backgroundcolor', 'block_accessibilite').'</label>';
         $this->content->text  .= '    <button';
         $this->content->text  .= '      class="btn btn-primary jscolor"';
         $this->content->text  .= '      name="couleur_de_fond"';
@@ -123,7 +123,7 @@ class block_accessibilite extends block_base {
         $this->content->text  .= '    </button>';
         $this->content->text  .= '  </div>';
         $this->content->text  .= '  <div class="element">';
-        $this->content->text  .= '    <label for="couleur_du_texte">Couleur du texte</label>';
+        $this->content->text  .= '    <label for="couleur_du_texte">'.get_string('textcolor', 'block_accessibilite').'</label>';
         $this->content->text  .= '    <button';
         $this->content->text  .= '      class="btn btn-primary jscolor"';
         $this->content->text  .= '      name="couleur_du_texte"';
@@ -150,7 +150,7 @@ class block_accessibilite extends block_base {
         $this->content->text  .= '    </button>';
         $this->content->text  .= '  </div>';
         $this->content->text  .= '  <div class="element">';
-        $this->content->text  .= '    <label for="altern_text">Mots alternés</label>';
+        $this->content->text  .= '    <label for="altern_text">'.get_string('alternatewords', 'block_accessibilite').'</label>';
         $this->content->text  .= '    <div class="element">';
         $this->content->text  .= '      <button';
         $this->content->text  .= '        class="btn btn-primary jscolor"';
@@ -214,10 +214,10 @@ class block_accessibilite extends block_base {
         $this->content->text  .= '    name="monochrome"';
         $this->content->text  .= '    onclick="block_accessibilite_monochrome()"';
         $this->content->text  .= '  >';
-        $this->content->text  .= '    Monochrome';
+        $this->content->text  .= '    '.get_string('monochrome', 'block_accessibilite');
         $this->content->text  .= '  </button>';
         $this->content->text  .= '  <div class="element">';
-        $this->content->text  .= '    <label for="taille_du_texte">Taille du texte</label>';
+        $this->content->text  .= '    <label for="taille_du_texte">'.get_string('textsize', 'block_accessibilite').'</label>';
         $this->content->text  .= '    <div class="element">';
         $this->content->text  .= '      <button';
         $this->content->text  .= '        class="btn btn-primary"';
@@ -236,7 +236,7 @@ class block_accessibilite extends block_base {
         $this->content->text  .= '    </div>';
         $this->content->text  .= '  </div>';
         $this->content->text  .= '  <div class="element">';
-        $this->content->text  .= '    <label for="Interligne">Interligne</label>';
+        $this->content->text  .= '    <label for="Interligne">'.get_string('linespacing', 'block_accessibilite').'</label>';
         $this->content->text  .= '    <div class="element">';
         $this->content->text  .= '      <button';
         $this->content->text  .= '        class="btn btn-primary"';
@@ -255,7 +255,7 @@ class block_accessibilite extends block_base {
         $this->content->text  .= '    </div>';
         $this->content->text  .= '  </div>';
         $this->content->text  .= '  <div class="element">';
-        $this->content->text  .= '    <label for="EspaceCaractere">Espace entre les caractères</label>';
+        $this->content->text  .= '    <label for="EspaceCaractere">'.get_string('spacecharacter', 'block_accessibilite').'</label>';
         $this->content->text  .= '    <div class="element">';
         $this->content->text  .= '      <button';
         $this->content->text  .= '        class="btn btn-primary"';
@@ -274,7 +274,7 @@ class block_accessibilite extends block_base {
         $this->content->text  .= '    </div>';
         $this->content->text  .= '  </div>';
         $this->content->text  .= '  <div class="element">';
-        $this->content->text  .= '    <label for="EspaceMot">Espace entre les mots</label>';
+        $this->content->text  .= '    <label for="EspaceMot">'.get_string('spaceword', 'block_accessibilite').'</label>';
         $this->content->text  .= '    <div class="element">';
         $this->content->text  .= '      <button';
         $this->content->text  .= '        class="btn btn-primary"';
@@ -293,14 +293,14 @@ class block_accessibilite extends block_base {
         $this->content->text  .= '    </div>';
         $this->content->text  .= '  </div>';
         $this->content->text  .= '  <div class="element">';
-        $this->content->text  .= '    <label for="police_du_texte">Police de caractères</label>';
+        $this->content->text  .= '    <label for="police_du_texte">'.get_string('font', 'block_accessibilite').'</label>';
         $this->content->text  .= '    <div class="fontGrid">';
         $this->content->text  .= '      <select';
         $this->content->text  .= '        class="custom-select grid-column-2"';
         $this->content->text  .= '        name="police_du_texte"';
         $this->content->text  .= '        onchange="block_accessibilite_changerPolice(this.value)"';
         $this->content->text  .= '      >';
-        $this->content->text  .= '        <option value="default">Défaut</option>';
+        $this->content->text  .= '        <option value="default">Default</option>';
         $this->content->text  .= '        <option value="helvetica">Helvetica</option>';
         $this->content->text  .= '        <option value="verdana">Verdana</option>';
         $this->content->text  .= '        <option value="comic sans ms">Comic</option>';
@@ -311,14 +311,14 @@ class block_accessibilite extends block_base {
         $this->content->text  .= '        name="EspaceMot"';
         $this->content->text  .= '        onclick="block_accessibilite_changerBold()"';
         $this->content->text  .= '      >';
-        $this->content->text  .= '        Gras';
+        $this->content->text  .= '        '.get_string('bold', 'block_accessibilite');
         $this->content->text  .= '      </button>';
         $this->content->text  .= '      <button';
         $this->content->text  .= '        class="btn btn-primary"';
         $this->content->text  .= '        name="EspaceMot"';
         $this->content->text  .= '        onclick="block_accessibilite_changerItalic()"';
         $this->content->text  .= '      >';
-        $this->content->text  .= '        Italique';
+        $this->content->text  .= '        '.get_string('italic', 'block_accessibilite');
         $this->content->text  .= '      </button>';
         $this->content->text  .= '    </div>';
         $this->content->text  .= '  </div>';
@@ -326,9 +326,8 @@ class block_accessibilite extends block_base {
         $this->content->text  .= '  <button';
         $this->content->text  .= '    class="btn btn-primary"';
         $this->content->text  .= '    name="Curseur"';
-        $this->content->text  .= '    onclick="block_accessibilite_changeCursor()"';
-        $this->content->text  .= '  >';
-        $this->content->text  .= '    Curseur';
+        $this->content->text  .= '    onclick="block_accessibilite_changeCursor()">';
+        $this->content->text  .= '    '.get_string('cursor', 'block_accessibilite');
         $this->content->text  .= '  </button>';
         $this->content->text  .= '</div>';
 
